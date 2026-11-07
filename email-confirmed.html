@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="sq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frigo App — Email-i u konfirmua</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .done { text-align: center; padding: 28px 22px 30px; }
+  .badge { width: 64px; height: 64px; border-radius: 22px; margin: 8px auto 14px; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 800; color: #fff; background: var(--green); }
+  .done.err .badge { background: var(--accent); }
+  .done h1 { margin-top: 6px; }
+  .done p { color: var(--muted); margin: 6px 0; }
+  .err-only { display: none; } .done.err .err-only { display: block; } .done.err .ok-only { display: none; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <a class="brand" href="./" aria-label="Frigo">
+    <picture><source srcset="logo-dark.png" media="(prefers-color-scheme: dark)"><img src="logo.png" alt="Frigo" width="108" height="48"></picture>
+  </a>
+</header>
+
+<section class="card done" id="box">
+  <div class="badge ok-only">✓</div>
+  <div class="badge err-only">!</div>
+  <div class="ok-only">
+    <h1>Email-i u konfirmua</h1>
+    <p>Llogaria juaj është gati. Kthehuni në aplikacionin Frigo dhe hyni me email-in dhe fjalëkalimin tuaj.</p>
+    <p lang="en"><strong>Email confirmed.</strong> Your account is ready. Go back to the Frigo app and sign in.</p>
+  </div>
+  <div class="err-only">
+    <h1>Lidhja nuk funksionoi</h1>
+    <p>Lidhja ka skaduar ose është përdorur tashmë. Nëse llogaria është konfirmuar, thjesht hyni në aplikacion; përndryshe regjistrohuni përsëri për të marrë një email të ri.</p>
+    <p lang="en"><strong>This link didn’t work.</strong> It has expired or was already used. If your account is confirmed, just sign in to the app; otherwise sign up again to get a new email.</p>
+  </div>
+</section>
+
+<footer>© 2026 Frigo App · <a href="mailto:frigoapp.support@gmail.com">frigoapp.support@gmail.com</a> · <a href="./">Privatësia / Privacy</a></footer>
+</main>
+<script>
+  // Supabase lands here after the confirm link, with the result in the URL.
+  // Show the right message and wipe the tokens from the address bar.
+  var u = location.hash + location.search;
+  if (/error/.test(u)) document.getElementById('box').className += ' err';
+  if (location.hash || location.search) history.replaceState(null, '', location.pathname);
+</script>
+</body>
+</html>
